@@ -1,0 +1,42 @@
+export const movies = [
+    {
+        id: "1",
+        title: "Inception",
+        director: "Christopher Nolan",
+        releaseYear: 2010,
+        genre: "SCI_FI",
+        rating: 8.8,
+    },
+    {
+        id: "2",
+        title: "The Dark Knight",
+        director: "Christopher Nolan",
+        releaseYear: 2008,
+        genre: "ACTION",
+        rating: 9.0,
+    },
+    {
+        id: "3",
+        title: "Interstellar",
+        director: "Christopher Nolan",
+        releaseYear: 2014,
+        genre: "SCI_FI",
+        rating: 8.7,
+    },
+    {
+        id: "4",
+        title: "Parasite",
+        director: "Bong Joon-ho",
+        releaseYear: 2019,
+        genre: "DRAMA",
+        rating: 8.5,
+    },
+    {
+        id: "5",
+        title: "The Conjuring",
+        director: "James Wan",
+        releaseYear: 2013,
+        genre: "HORROR",
+        rating: 7.5,
+    },
+];

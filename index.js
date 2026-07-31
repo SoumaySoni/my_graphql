@@ -1,14 +1,18 @@
-const express = require('express'); // for server
-const {graphqlHTTP} = require('express-graphql'); // for connect server to graphql
-const schema = require('./schema/schema.js'); // to write schema to show the data from db 
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
-const app = express();
+import { typeDefs } from "./schema.js";
+import { resolvers } from "./resolvers.js";
 
-app.use("/graphql-me",graphqlHTTP({
-    schema,
-    graphiql: true, // for showing ui on the port to write and run query 
-}))
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+});
 
-app.listen(4000,()=>{
-    console.log("server is running on port 4000")
-})
+const { url } = await startStandaloneServer(server, {
+    listen: {
+        port: 4000,
+    },
+});
+
+console.log(`🚀 Server ready at ${url}`);
