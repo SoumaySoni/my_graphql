@@ -1,180 +1,62 @@
-# Movie GraphQL API
+# Cinematheque — Movie GraphQL Database
 
-A premium, lightweight GraphQL API built using **Apollo Server 4** and **Node.js** for managing a movie database. The project supports robust queries like search, filtering by genre, filtering by rating, sorting by release year, and full CRUD operations via mutations.
+A premium, responsive movie database application designed with a minimalist black-and-white (monochromatic) aesthetic. Built with a **React (Vite) frontend** and an **Apollo Server 4 + Express backend**.
 
-## 🚀 Features
+## 📂 Project Structure
 
-- **Full CRUD Operations**: Create, Read, Update, and Delete movies.
-- **Search**: Search movies by title (case-insensitive substring matching).
-- **Filtering**: 
-  - Filter movies by Genre (`ACTION`, `COMEDY`, `DRAMA`, `HORROR`, `SCI_FI`, `THRILLER`).
-  - Filter movies by minimum rating.
-- **Sorting**: Fetch movies sorted by release year (newest first).
+```
+my_graphql/
+├── client/                 # React Frontend (Vite)
+│   ├── src/
+│   │   ├── App.jsx         # Movie Explorer UI & Query logic
+│   │   ├── index.css       # Premium monochromatic styles
+│   │   └── graphql.js      # GraphQL POST query utilities
+│   ├── index.html
+│   └── package.json
+│
+└── server/                 # Apollo Server + Express Backend
+    ├── data.js             # Local database storage
+    ├── schema.js           # GraphQL type definitions
+    ├── resolvers.js        # Query & Mutation resolvers
+    ├── index.js            # Express app serving Apollo & React client
+    └── package.json
+```
 
 ---
 
-## 🛠️ Tech Stack
-
-- **Runtime**: Node.js (ES Modules)
-- **GraphQL Engine**: Apollo Server (`@apollo/server`)
-- **Server**: Standalone Apollo Server
-
----
-
-## 🏃 Quick Start
+## 🚀 Getting Started
 
 ### 1. Install Dependencies
 
-Clone this repository or navigate to the project directory, then run:
+Install all dependencies for both frontend and backend in one command from the root folder:
 
 ```bash
-npm install
+npm run install:all
 ```
+*(This installs root devDependencies as well as nested client and server dependencies)*
 
-### 2. Start the Server
+### 2. Start the App
 
-Start the development server with auto-reload (using `nodemon` if installed):
+You can run the project in two ways from the root directory:
 
+#### Option A: Development Mode (Concurrently runs server & client with auto-reload)
 ```bash
 npm run dev
-# or if you don't have a dev script configured:
-npx nodemon index.js
-# or simply:
-node index.js
 ```
+- GraphQL Server: `http://localhost:4000/graphql`
+- React Client App: `http://localhost:5173/`
 
-The server will spin up and be available at:
-👉 **`http://localhost:4000/`** (opens the Apollo Sandbox)
+#### Option B: Unified Production Mode (Builds client & hosts it on the same server port)
+```bash
+npm start
+```
+- Both Client and GraphQL API: `http://localhost:4000/`
 
 ---
 
-## 📊 GraphQL Schema
+## 🎨 Monochromatic UI Design System
 
-### Types & Enums
-
-```graphql
-enum Genre {
-  ACTION
-  COMEDY
-  DRAMA
-  HORROR
-  SCI_FI
-  THRILLER
-}
-
-type Movie {
-  id: ID!
-  title: String!
-  director: String!
-  releaseYear: Int!
-  genre: Genre!
-  rating: Float!
-}
-
-input MovieInput {
-  title: String!
-  director: String!
-  releaseYear: Int!
-  genre: Genre!
-  rating: Float!
-}
-```
-
-### Queries
-
-| Query | Return Type | Description |
-| :--- | :--- | :--- |
-| `movies` | `[Movie!]!` | Retrieve all movies in the database |
-| `movie(id: ID!)` | `Movie` | Retrieve a single movie by its ID |
-| `moviesByGenre(genre: Genre!)` | `[Movie!]!` | Get movies belonging to a specific genre |
-| `moviesByTitle(title: String!)` | `[Movie!]!` | Search movies by title (case-insensitive) |
-| `topRatedMovies(minRating: Float!)` | `[Movie!]!` | Retrieve movies with rating $\ge$ `minRating` |
-| `moviesSortedByYear` | `[Movie!]!` | Retrieve movies sorted from newest to oldest |
-
-### Mutations
-
-| Mutation | Return Type | Description |
-| :--- | :--- | :--- |
-| `addMovie(movie: MovieInput!)` | `Movie!` | Add a new movie to the database |
-| `updateMovie(id: ID!, movie: MovieInput!)` | `Movie` | Update details of an existing movie |
-| `deleteMovie(id: ID!)` | `Boolean` | Delete a movie by its ID |
-
----
-
-## 📝 Query & Mutation Examples
-
-### 🔍 Search Movies by Title
-```graphql
-query SearchMovies {
-  moviesByTitle(title: "knight") {
-    id
-    title
-    director
-    genre
-    rating
-  }
-}
-```
-
-### 📈 Get Top Rated Movies
-```graphql
-query TopMovies {
-  topRatedMovies(minRating: 8.5) {
-    title
-    rating
-    releaseYear
-  }
-}
-```
-
-### 📅 Get Movies Sorted by Year (Newest First)
-```graphql
-query SortedMovies {
-  moviesSortedByYear {
-    title
-    releaseYear
-    director
-  }
-}
-```
-
-### ➕ Add a New Movie
-```graphql
-mutation CreateMovie {
-  addMovie(movie: {
-    title: "Oppenheimer"
-    director: "Christopher Nolan"
-    releaseYear: 2023
-    genre: DRAMA
-    rating: 8.9
-  }) {
-    id
-    title
-    genre
-  }
-}
-```
-
-### ✏️ Update a Movie
-```graphql
-mutation EditMovie {
-  updateMovie(id: "1", movie: {
-    title: "Inception (Special Edition)"
-    director: "Christopher Nolan"
-    releaseYear: 2010
-    genre: SCI_FI
-    rating: 8.9
-  }) {
-    id
-    title
-    rating
-  }
-}
-```
-
-### ❌ Delete a Movie
-```graphql
-mutation RemoveMovie {
-  deleteMovie(id: "5")
-}
-```
+- **Minimalist Aesthetic**: Slate black and off-white palette inspired by modern dark themes.
+- **Micro-Animations**: Hover scale transitions on cards, custom slider controls, focus rings, and modal animations.
+- **Rich Interaction**: Live typing search, genre filter tags, rating filter slider, newest release sorter, and a modal drawer for adding new movies.
+- **Full CRUD Capabilities**: Connects directly to our GraphQL queries (`moviesByTitle`, `moviesByGenre`, `topRatedMovies`, `moviesSortedByYear`) and mutations (`addMovie`, `deleteMovie`).

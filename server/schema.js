@@ -19,11 +19,11 @@ export const typeDefs = `#graphql
   }
 
   input MovieInput {
-  title: String!
-  director: String!
-  releaseYear: Int!
-  genre: Genre!
-  rating: Float!
+    title: String!
+    director: String!
+    releaseYear: Int!
+    genre: Genre!
+    rating: Float!
   }
 
   type Query {

@@ -1,21 +1,16 @@
 {
-  "name": "my_graphql",
+  "name": "my_graphql-monorepo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Monochromatic Movie App with React & GraphQL",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install:all": "npm install --prefix client && npm install --prefix server",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build:client": "npm run build --prefix client",
+    "start": "npm run build:client && npm start --prefix server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github-personal:SoumaySoni/my_graphql.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@apollo/server": "^5.5.1",
-    "graphql": "^16.14.2"
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
